@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Eat This — Spotify Snake</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div id="screen-setup" class="screen">
+    <div class="setup-card">
+      <h1>🐍 Eat This</h1>
+      <p class="subtitle">Snake con las portadas (y canciones) de tus canciones de Spotify</p>
+
+      <div class="search-row">
+        <input
+          id="search-input"
+          type="text"
+          placeholder="Busca una canción por nombre o artista…"
+          autocomplete="off"
+        />
+        <button id="search-btn" class="btn-add" type="button">Buscar</button>
+      </div>
+
+      <div id="search-results" class="search-results"></div>
+      <a id="spotify-fallback-link" class="spotify-fallback-link hidden" target="_blank" rel="noopener noreferrer"></a>
+      <p class="search-hint">
+        Esto es una vista previa (30s, vía iTunes) para reconocer la canción. Para
+        agregarla al juego, tocá "Abrir en Spotify ↗", copiá el link de la canción
+        y pegalo abajo.
+      </p>
+
+      <div class="divider"><span>o pega links directamente</span></div>
+
+      <div id="dropzone" class="dropzone">
+        <div class="dropzone-icon">🎵</div>
+        <div class="dropzone-text">
+          Arrastra aquí links de canciones<br />
+          <span class="dropzone-sub">o un .txt/.csv exportado (uno o varios a la vez)</span>
+        </div>
+      </div>
+
+      <div class="add-row">
+        <input
+          id="track-url-input"
+          type="text"
+          placeholder="Pega un link de canción de Spotify…"
+          autocomplete="off"
+        />
+        <button id="add-track-btn" class="btn-add" type="button">Agregar</button>
+      </div>
+
+      <div id="tracks-queue" class="tracks-queue"></div>
+
+      <button id="load-btn" class="btn-primary" disabled>Jugar (0/3 canciones)</button>
+      <button id="clear-queue-btn" class="secondary" type="button">Vaciar lista</button>
+
+      <div class="hint">
+        El buscador no usa la API de Spotify: busca por nombre en
+        <b>iTunes/Apple Music</b> y te deja escuchar un preview de 30s. Si
+        no aparece ahí, usá el link "Buscar directo en Spotify" de arriba.
+        Para jugar la canción, copiá su link real desde Spotify (⋯ o clic
+        derecho → <b>Compartir → Copiar enlace de la canción</b>) y pegalo
+        abajo — o simplemente volvé a esta pestaña después de copiarlo: si
+        el portapapeles tiene un link de Spotify, <b>se agrega solo</b>.
+        También puedes soltar un archivo <code>.txt</code> con varios
+        links. No hace falta iniciar sesión ni tener Premium: usamos el
+        <b>oEmbed público</b> de Spotify solo para el título y la portada
+        de cada canción agregada. Tu lista queda <b>guardada en este
+        navegador</b>, así que la próxima vez que entres ya la vas a tener
+        lista — no hace falta rearmarla ("Vaciar lista" la borra).
+      </div>
+
+      <p id="setup-status" class="status"></p>
+    </div>
+  </div>
+
+  <div id="screen-game" class="screen hidden">
+    <div class="hud">
+      <div class="score">Puntos: <span id="score">0</span></div>
+      <div class="now-playing">
+        <img id="now-playing-cover" src="" alt="" />
+        <div class="now-playing-text">
+          <div id="now-playing-title">—</div>
+          <div id="now-playing-artist"></div>
+        </div>
+      </div>
+    </div>
+
+    <canvas id="game-canvas"></canvas>
+
+    <div id="spotify-embed-wrap">
+      <div id="spotify-embed"></div>
+    </div>
+
+    <div class="controls-hint">Muévete con las flechas o WASD</div>
+  </div>
+
+  <div id="screen-gameover" class="screen hidden">
+    <div class="setup-card">
+      <h1>Game Over</h1>
+      <p class="subtitle" id="final-score">Comiste 0 portadas</p>
+      <button id="restart-btn">Jugar de nuevo</button>
+      <button id="change-playlist-btn" class="secondary">Cambiar playlist</button>
+    </div>
+  </div>
+
+  <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
+  <script src="game.js"></script>
+</body>
+</html>
