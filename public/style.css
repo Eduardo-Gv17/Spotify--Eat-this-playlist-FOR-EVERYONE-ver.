@@ -508,6 +508,7 @@ button.secondary:hover:not(:disabled) {
   height: min(94vw, 92vh, 720px);
   image-rendering: pixelated;
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+  touch-action: none; /* evita que el navegador scrollee/zoomee al swipear para mover el snake */
 }
 
 #spotify-embed-wrap {

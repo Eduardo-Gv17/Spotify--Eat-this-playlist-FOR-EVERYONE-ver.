@@ -110,6 +110,13 @@ No hace falta el CLI: puedes conectar el repo desde el dashboard de Vercel
 automáticamente. Si prefieres el CLI: `npx vercel` (sin instalarlo global).
 No hay variables de entorno que configurar.
 
+## Controles
+
+- **Teclado**: flechas o WASD.
+- **Táctil (celular/tablet)**: deslizá el dedo sobre el tablero en la
+  dirección que querés mover al snake (swipe). Un toque corto (tap) no
+  cuenta como movimiento, solo un desplazamiento de al menos ~24px.
+
 ## Cómo conseguir los links de canciones
 
 En la app o web de Spotify, sobre una canción: **⋯ (o clic derecho) → Compartir

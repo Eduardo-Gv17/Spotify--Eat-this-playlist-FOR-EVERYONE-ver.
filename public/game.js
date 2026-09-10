@@ -709,6 +709,13 @@ const KEY_DIRS = {
   d: { x: 1, y: 0 },
 };
 
+function trySetDirection(dir) {
+  if (!dir) return;
+  // evitar giro de 180 grados
+  if (dir.x === -direction.x && dir.y === -direction.y) return;
+  nextDirection = dir;
+}
+
 window.addEventListener('keydown', (e) => {
   // no capturar teclas de movimiento mientras se escribe en un input/textarea
   // (por ej. el buscador), ni cuando no se está jugando
@@ -718,11 +725,58 @@ window.addEventListener('keydown', (e) => {
 
   const dir = KEY_DIRS[e.key];
   if (!dir) return;
-  // evitar giro de 180 grados
-  if (dir.x === -direction.x && dir.y === -direction.y) return;
-  nextDirection = dir;
+  trySetDirection(dir);
   e.preventDefault();
 });
+
+// ---------- Controles táctiles (swipe) ----------
+// El juego solo escuchaba teclado — en celular no hay teclado, así que el
+// snake nunca se movía. Esto agrega swipes sobre el canvas: se compara el
+// punto donde empezó el toque contra donde terminó, y el eje con mayor
+// desplazamiento define la dirección. SWIPE_MIN_PX evita que un toque
+// corto/accidental (tap) se interprete como un giro.
+const SWIPE_MIN_PX = 24;
+let touchStartX = 0;
+let touchStartY = 0;
+
+canvas.addEventListener(
+  'touchstart',
+  (e) => {
+    if (screenGame.classList.contains('hidden')) return;
+    const t = e.touches[0];
+    touchStartX = t.clientX;
+    touchStartY = t.clientY;
+  },
+  { passive: true },
+);
+
+canvas.addEventListener(
+  'touchend',
+  (e) => {
+    if (screenGame.classList.contains('hidden')) return;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - touchStartX;
+    const dy = t.clientY - touchStartY;
+
+    if (Math.max(Math.abs(dx), Math.abs(dy)) < SWIPE_MIN_PX) return; // fue un tap, no un swipe
+
+    const dir =
+      Math.abs(dx) > Math.abs(dy) ? { x: dx > 0 ? 1 : -1, y: 0 } : { x: 0, y: dy > 0 ? 1 : -1 };
+    trySetDirection(dir);
+  },
+  { passive: true },
+);
+
+// preventDefault en touchmove (necesita { passive: false }) para que el
+// navegador no scrollee/haga "pull to refresh" mientras se está swipeando
+// arriba del canvas durante la partida.
+canvas.addEventListener(
+  'touchmove',
+  (e) => {
+    if (!screenGame.classList.contains('hidden')) e.preventDefault();
+  },
+  { passive: false },
+);
 
 window.addEventListener('resize', () => {
   if (!screenGame.classList.contains('hidden')) {
