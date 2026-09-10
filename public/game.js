@@ -501,25 +501,28 @@ window.onSpotifyIframeApiReady = (IFrameAPI) => {
   });
 };
 
-// El iFrame API de Spotify acepta un `startAt` (en segundos) en loadUri:
-// "el timestamp desde donde debe empezar la reproducción cuando se llama a
-// play()" (documentado en developer.spotify.com/documentation/embeds).
-// Lo usamos para saltar la intro y arrancar más cerca de la parte
-// "enganchadora" de la canción — igual en PC que en celular, sin depender
-// de si el navegador tiene o no una sesión de Spotify iniciada (eso es lo
-// que hacía que antes variara según el dispositivo). Es un valor fijo, no
-// un punto "inteligente" calculado por canción — para eso haría falta
-// conocer la duración exacta de cada track, que no tenemos.
-const SKIP_INTRO_SECONDS = 30;
-
+// NOTA: se probó pasar un `startAt` fijo acá (para saltar la intro y
+// arrancar en una parte más "enganchadora", igual en PC que en celular) y
+// rompió la reproducción en mobile por completo. Hipótesis: en mobile, sin
+// sesión de Spotify Premium en el navegador, el Embed sirve directamente
+// el clip de preview de ~30s (que ya arranca en un punto elegido por
+// Spotify, no en 0:00 — por eso "ya sonaba bien" en celular) en vez del
+// track completo. Pedirle que arranque a los 30s de ESE clip corto
+// probablemente cae fuera de su duración y el Embed no reproduce nada. En
+// PC, con sesión Premium, sí carga el track completo y el `startAt` no
+// tiene ese problema — pero el comportamiento distinto entre plataformas
+// es indetectable desde acá (el iframe es de otro dominio), así que no hay
+// forma segura de aplicarlo solo cuando corresponde. Se revierte: cada
+// plataforma vuelve a comportarse como decida Spotify por su cuenta.
 function playTrack(track) {
   if (!embedController) return;
-  embedController.loadUri(track.uri, false, SKIP_INTRO_SECONDS);
+  embedController.loadUri(track.uri);
   embedController.play();
   nowPlayingCover.src = track.image;
   nowPlayingTitle.textContent = track.name;
   nowPlayingArtist.textContent = track.artist;
 }
+
 
 function pausePlayback() {
   if (embedController) embedController.pause();
