@@ -1,5 +1,7 @@
 # Eat This para Spicetify
 
+> El desarrollo de esta app continúa en **[Eduardo-Gv17/eat-this-spicetify](https://github.com/Eduardo-Gv17/eat-this-spicetify)**. Usa su README en inglés y **[descarga el ZIP de la última release](https://github.com/Eduardo-Gv17/eat-this-spicetify/releases/latest/download/eat-this.zip)** para instalarla. Esta carpeta conserva la copia inicial del proyecto.
+
 Custom App independiente de la versión web. No necesita servidor, credenciales de desarrollador ni paquetes npm. Usa React del cliente, canvas y el reproductor de Spotify. Se entrega directamente en el formato instalable `index.js` + `manifest.json`; Creator puede incorporarse después si se desea trabajar con JSX/TypeScript.
 
 ## Instalar en Windows

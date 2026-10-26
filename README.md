@@ -2,7 +2,9 @@
 
 ## Versión integrada en Spotify de escritorio
 
-La nueva Custom App de Spicetify está en [`spicetify/`](spicetify/README.md): carga automática de playlists, reproductor integrado y acceso desde el menú contextual. Incluye instalador para Windows y pruebas. La versión web descrita a continuación sigue disponible de forma independiente.
+La versión de Spicetify ahora tiene su propio repositorio: **[eat-this-spicetify](https://github.com/Eduardo-Gv17/eat-this-spicetify)**. Allí encontrarás la versión actual, el README en inglés y **[eat-this.zip listo para descargar](https://github.com/Eduardo-Gv17/eat-this-spicetify/releases/latest/download/eat-this.zip)**. Incluye tus playlists guardadas, reproducción integrada y un diseño minimalista dentro de Spotify.
+
+Este repositorio conserva la versión web original y una copia inicial del código de Spicetify en [`spicetify/`](spicetify/README.md). Para instalar o colaborar en la Custom App, usa el repositorio dedicado.
 
 Snake donde las "manzanas" son las portadas de canciones de Spotify, y cada
 vez que el snake se come una portada, suena esa canción (usando el Embed
