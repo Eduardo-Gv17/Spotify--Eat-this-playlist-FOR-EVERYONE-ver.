@@ -1,5 +1,9 @@
 # Eat This 🐍 — Spotify Snake
 
+## Versión integrada en Spotify de escritorio
+
+La nueva Custom App de Spicetify está en [`spicetify/`](spicetify/README.md): carga automática de playlists, reproductor integrado y acceso desde el menú contextual. Incluye instalador para Windows y pruebas. La versión web descrita a continuación sigue disponible de forma independiente.
+
 Snake donde las "manzanas" son las portadas de canciones de Spotify, y cada
 vez que el snake se come una portada, suena esa canción (usando el Embed
 iFrame API oficial de Spotify).
